@@ -38,8 +38,8 @@ work_portfolio/
 │   └── globals.css         # Tailwind v4 theme tokens, editorials helpers, marquee/reveal CSS, .anim-mask
 ├── components/
 │   ├── Navbar.tsx          # fixed nav + scrollspy + animated mobile menu
-│   ├── Hero.tsx            # HI! I'M SUMAN · taglines · CTAs · tall 320vh scroll stage + top-right portrait
-│   ├── ScrollAnim.tsx      # scroll-scrubbed background animation (VP9 video, progress → currentTime)
+│   ├── Hero.tsx            # HI! I'M SUMAN · taglines · CTAs · full-viewport intro stage + top-right portrait
+│   ├── BackgroundVideo.tsx # looping background animation (VP9 webm, normal playback speed)
 │   ├── About.tsx           # bio, keyword skills, animated stats (count-up)
 │   ├── Services.tsx        # "I OFFER" — numbered editorial cards 01–04
 │   ├── Projects.tsx        # "MY SHOWCASE" — category filter tabs + data-driven grid
@@ -75,18 +75,18 @@ work_portfolio/
 | **Next.js 16 (App Router)** | Static prerendering by default, route-less single page, `next/font` self-hosts the display type, zero config for the level of polish required. |
 | **React 19 + TypeScript** | Strict typing catches mistakes at build time; `satisfies` keeps the config data honest. |
 | **Tailwind CSS v4** | Design tokens live in one `@theme` block; utilities map 1:1 to the PDF palette; no unused CSS. |
-| **Framer Motion** | The single, genuinely-useful animation dependency: masked hero reveals, scroll-scrubbed animation progress (`useScroll` → `useMotionValueEvent`), parallax, scroll-triggered stagger, springs for the custom cursor, and `<MotionConfig reducedMotion="user">` for first-class reduced-motion support. Everything else is CSS. |
+| **Framer Motion** | The single, genuinely-useful animation dependency: masked hero reveals, looped background animation, parallax, scroll-triggered stagger, springs for the custom cursor, and `<MotionConfig reducedMotion="user">` for first-class reduced-motion support. Everything else is CSS. |
 | **No other runtime deps** | No UI kit, no icon library (icons are inline SVG), no CLI helpers — keeps the bundle small and fast. |
 | **ffmpeg (build-time only)** | Converts the 165-frame PNG sequence in `asset/` into a scrub-friendly **VP9 WebM** (`-g 6` frequent keyframes) — ~667 KB instead of 92 MB. The raw frames are git-ignored; only compressed derivatives deploy. |
 
-## Scroll-scrubbed hero background
+## Hero background animation
 
-The hero is a **320vh scroll stage**: content and the portrait pin on a sticky
-full-viewport stage (`ScrollAnim`) while the 165-frame doodle animation plays in
-sync with the scroll — `useScroll` progress maps to `video.currentTime`. Design details:
+The hero is a normal full-viewport stage with the 165-frame doodle animation
+playing at **normal speed** in a loop — `BackgroundVideo` renders a muted
+`<video>` with `loop` + `playsInline` that autoplays on load. Design details:
 
 - The animation is kept to the **right half** of the hero (`.anim-mask` fade on its left edge) so it never washes out the readable text column; it renders via `mix-blend-mode: screen` at 50 % so the butter-coloured line art reads as a growing pale panel behind the portrait.
-- `prefers-reduced-motion` → the video simply never seeks (static poster frame). No hydration mismatch (the element type never changes).
+- `prefers-reduced-motion` → playback is paused, the video stays on its poster frame. No hydration mismatch (the element type never changes).
 - Decorative layer is `aria-hidden` + `pointer-events-none`; mobile (<768px) hides it entirely.
 
 Regenerate the animation after changing frames in `asset/bac_animation/`:
@@ -139,9 +139,9 @@ Automated checks (headless Chromium, Playwright — scripts kept in `/tmp`, not 
 | Check | Result |
 | --- | --- |
 | Viewport sweep 1920 / 1440 / 1280 / 1024 / 768 / 480 / 375 | no horizontal overflow, no console errors at any width |
-| Scroll animation | `/animation/scroll-anim.webm` serves `200 video/webm` (668 KB); scrub is monotonic at every width (e.g. 60 % scroll → `currentTime ≈ 4.0–4.1 of 6.875 s`); video stays `paused`, poster shown before load |
+| Background animation | `/animation/scroll-anim.webm` serves `200 video/webm` (668 KB); plays muted & looping at native speed (~6.9 s loop), starts without interaction, poster shown before load |
 | Hero portrait | served as `/hero.webp` (108 KB) + `/hero.png` fallback; visible at ≥1024 px, hidden below; `fetchPriority=high` |
-| `prefers-reduced-motion` + animation | video present but **never seeks** (static poster), no hydration mismatch |
+| `prefers-reduced-motion` + animation | video present but **never plays** (static poster), no hydration mismatch |
 | All anchors resolve to real section ids | ✔ (0 broken) |
 | Heading hierarchy | 1×H1, section H2s, card H3s — correct order |
 | Images | all 7 serve `200 image/svg+xml`, load lazily, correct `alt` |
@@ -150,7 +150,7 @@ Automated checks (headless Chromium, Playwright — scripts kept in `/tmp`, not 
 | Contact form | submit fires, React handler runs without errors, builds `mailto:` with encoded subject/body (external-protocol handoff can't be observed inside headless by design) |
 | `prefers-reduced-motion` | marquee/scroll-line CSS animations disabled, framer animation honoured via `MotionConfig`, **no hydration mismatch** (fixed: was rendering different DOM per motion preference) |
 | Touch devices | custom cursor not rendered; mobile menu present |
-| First load | ≈1.1 MB transferred, 16 requests, ~1.2 s load event (includes the 668 KB scroll-animation WebM prefetched eagerly so scrubbing starts instantly; everything else unchanged) |
+| First load | ≈1.1 MB transferred, 16 requests, ~1.2 s load event (includes the 668 KB background-animation WebM prefetched eagerly so playback starts instantly; everything else unchanged) |
 | Contrast | body `#CFCBE5`/`#9494AE` text passes AA on all section backgrounds; small terracotta accent text uses the AA-sufficient `--color-terra-light` |
 
 ## Accessibility

@@ -105,22 +105,6 @@
     @apply h-px w-full bg-cream/10;
   }
 
-  /* Soft left fade for the scroll-animation media layer */
-  .anim-mask {
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      transparent 0%,
-      transparent 4%,
-      #000 16%
-    );
-    mask-image: linear-gradient(
-      90deg,
-      transparent 0%,
-      transparent 4%,
-      #000 16%
-    );
-  }
-
   /* Marquee */
   .marquee-track {
     animation: marquee var(--marquee-duration, 42s) linear infinite;
