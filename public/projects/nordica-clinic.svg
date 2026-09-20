@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="t">
+  <title id="t">Nordica Clinic — rebrand artwork</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2C1E4D"/>
+      <stop offset="1" stop-color="#0E1031"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <g stroke="#CFCBE5" stroke-width="3" opacity="0.7">
+    <circle cx="400" cy="360" r="150" fill="none"/>
+    <circle cx="400" cy="360" r="260" fill="none" opacity="0.4"/>
+  </g>
+  <g fill="none" stroke="#B25043" stroke-width="12" stroke-linecap="round">
+    <path d="M400 240 V480 M280 360 H520"/>
+  </g>
+  <path d="M160 780 C220 720 260 820 330 760 C360 735 380 730 420 745" fill="none" stroke="#CFCBE5" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+  <g stroke="#276A8D" stroke-width="6" opacity="0.8">
+    <path d="M640 820 v-100 M590 770 h100" stroke-linecap="round"/>
+  </g>
+</svg>
