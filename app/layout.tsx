@@ -1,51 +1,22 @@
 import type { Metadata } from "next";
-import { Archivo, Instrument_Serif, Inter } from "next/font/google";
-import { MotionConfig } from "framer-motion";
+import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/500.css";
+import "@fontsource/poppins/600.css";
+import "@fontsource/poppins/700.css";
+import "@fontsource/poppins/800.css";
+import "@fontsource/anton/400.css";
 import "./globals.css";
-import CustomCursor from "@/components/CustomCursor";
-import { portfolio } from "@/data/portfolio";
-
-const archivo = Archivo({
-  subsets: ["latin"],
-  variable: "--font-archivo",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const instrument = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-instrument",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
-  title: `${portfolio.name} — ${portfolio.role}`,
-  description: portfolio.tagline,
+  title: "Suman — Graphic Designer, Animator & Video Editor",
+  description:
+    "Portfolio of Suman: brand design, animation, product showcases and photo retouching.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${archivo.variable} ${inter.variable} ${instrument.variable}`}
-    >
-      <body className="bg-navy text-cream antialiased">
-        {/* MotionConfig makes every motion component honour
-            prefers-reduced-motion without hydration mismatches. */}
-        <MotionConfig reducedMotion="user">{children}</MotionConfig>
-        <CustomCursor />
-      </body>
+    <html lang="en">
+      <body>{children}</body>
     </html>
   );
 }

@@ -1,31 +1,27 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Services from "@/components/Services";
-import Projects from "@/components/Projects";
+import Offer from "@/components/Offer";
+import Showcase from "@/components/Showcase";
+import Process from "@/components/Process";
+import Testimonials from "@/components/Testimonials";
 import Clients from "@/components/Clients";
-import Contact from "@/components/Contact";
+import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
-export default function Home() {
+export default function Page() {
   return (
-    <>
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-terra focus:px-4 focus:py-2 focus:font-display focus:text-xs focus:uppercase focus:tracking-[0.2em] focus:text-white"
-      >
-        Skip to content
-      </a>
+    <main>
       <Navbar />
-      <main id="main">
-        <Hero />
-        <About />
-        <Services />
-        <Projects />
-        <Clients />
-        <Contact />
-      </main>
+      <Hero />
+      <About />
+      <Offer />
+      <Showcase />
+      <Process />
+      <Testimonials />
+      <Clients />
+      <ContactSection />
       <Footer />
-    </>
+    </main>
   );
 }
