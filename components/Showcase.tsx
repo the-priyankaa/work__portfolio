@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { SHOWCASE, type Media } from "@/lib/data";
 
 function Slot({ media, className }: { media?: Media; className: string }) {
@@ -21,6 +22,7 @@ export default function Showcase() {
   // Front card is shown last (bottom) exactly like the design: 03, 02, then 01.
   const [active, setActive] = useState("01");
   const [touched, setTouched] = useState(false);
+  const reduce = useReducedMotion();
 
   const behind = SHOWCASE.filter((c) => c.n !== active).sort((a, b) => (a.n < b.n ? 1 : -1));
   const front = SHOWCASE.find((c) => c.n === active)!;
@@ -34,10 +36,14 @@ export default function Showcase() {
           {ordered.map((c, i) => {
             const isFront = c.n === active;
             return (
-              <article
+              <motion.article
                 key={c.n}
                 className={`card ${isFront ? "card--front" : ""} ${isFront && touched ? "card--lift" : ""}`}
                 style={{ "--i": i } as React.CSSProperties}
+                initial={reduce ? false : { opacity: 0, y: 30 }}
+                whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
               >
                 <button
                   className="card__tab"
@@ -60,7 +66,7 @@ export default function Showcase() {
                   </div>
                   <Slot media={c.main} className="slot--tall" />
                 </div>
-              </article>
+              </motion.article>
             );
           })}
         </div>

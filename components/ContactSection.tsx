@@ -2,6 +2,7 @@
 
 import type { FormEvent } from "react";
 import { CONTACT } from "@/lib/data";
+import Reveal from "@/components/Reveal";
 
 const icons: Record<string, React.ReactNode> = {
   Facebook: (
@@ -50,7 +51,7 @@ export default function ContactSection() {
   return (
     <section id="contact" className="contact">
       <div className="container contact__grid">
-        <div className="contact__copy">
+        <Reveal className="contact__copy">
           <h2 className="h2">Contact Me</h2>
           <p className="contact__lead">
             Have a project in mind? Let&rsquo;s make something people remember.
@@ -74,9 +75,10 @@ export default function ContactSection() {
               </a>
             ))}
           </div>
-        </div>
+        </Reveal>
 
-        <form className="contact__form" onSubmit={submit}>
+        <Reveal delay={0.15} className="contact__form">
+          <form className="contact__form" onSubmit={submit}>
           <label className="field">
             <span className="field__label">Name</span>
             <input className="field__input" type="text" name="name" required autoComplete="name" />
@@ -92,7 +94,8 @@ export default function ContactSection() {
           <button className="btn contact__submit" type="submit">
             Send Message
           </button>
-        </form>
+          </form>
+        </Reveal>
       </div>
     </section>
   );

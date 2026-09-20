@@ -80,6 +80,74 @@ footer[id] {
   text-align: center;
 }
 
+/* ---------- background blobs ---------- */
+.bg-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  will-change: transform;
+}
+
+.bg-blob--one {
+  width: 42vw;
+  height: 42vw;
+  max-width: 640px;
+  max-height: 640px;
+  left: -12%;
+  top: 12%;
+  background: rgba(100, 100, 196, 0.32);
+  animation: drift1 26s ease-in-out infinite alternate;
+}
+
+.bg-blob--two {
+  width: 36vw;
+  height: 36vw;
+  max-width: 560px;
+  max-height: 560px;
+  right: -14%;
+  top: 38%;
+  background: rgba(204, 204, 254, 0.16);
+  animation: drift2 32s ease-in-out infinite alternate;
+}
+
+.bg-blob--three {
+  width: 30vw;
+  height: 30vw;
+  max-width: 480px;
+  max-height: 480px;
+  left: 8%;
+  bottom: -10%;
+  background: rgba(100, 100, 196, 0.22);
+  animation: drift1 38s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes drift1 {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(6vw, 4vh, 0) scale(1.15);
+  }
+}
+
+@keyframes drift2 {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-5vw, -6vh, 0) scale(1.1);
+  }
+}
+
 /* ---------- nav ---------- */
 .nav {
   position: sticky;
@@ -231,6 +299,11 @@ footer[id] {
   height: clamp(300px, 36.5vw, 437px);
   width: auto;
   margin-top: calc(var(--title-size) * -0.5);
+}
+
+.hero__char img {
+  height: 100%;
+  width: auto;
 }
 
 .hero__tagline {
@@ -521,6 +594,32 @@ footer[id] {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.slot:hover img,
+.slot:hover video {
+  transform: scale(1.05);
+}
+
+/* Media slots pop in when their card becomes the front card. */
+.card--front .card__side .slot {
+  animation: slot-in 0.35s ease both;
+}
+
+.card--front .card__side .slot:nth-child(2) {
+  animation-delay: 60ms;
+}
+
+.card--front .card__body > .slot--tall {
+  animation: slot-in 0.35s ease 0.12s both;
+}
+
+@keyframes slot-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
 }
 
 .slot--wide {
@@ -688,6 +787,82 @@ footer[id] {
   margin-top: 0.2rem;
   font-size: 0.78rem;
   color: var(--text-dim);
+}
+
+/* ---------- marquee ---------- */
+.marquee {
+  overflow: hidden;
+  border-top: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  padding: 1.1rem 0;
+  margin: 1.5rem 0;
+  background: rgba(0, 0, 52, 0.35);
+  user-select: none;
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+.marquee__group {
+  display: flex;
+  align-items: center;
+}
+
+.marquee__item {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--lilac);
+  white-space: nowrap;
+  padding: 0 1rem;
+}
+
+.marquee__sep {
+  color: var(--accent);
+  margin-left: 1.5rem;
+  font-family: var(--font-body);
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- hover interactions ---------- */
+.pill__box {
+  transition: box-shadow 0.25s ease;
+}
+
+.pill:hover .pill__box {
+  box-shadow: 0 14px 34px rgba(100, 100, 196, 0.4);
+}
+
+.quote {
+  transition: box-shadow 0.25s ease;
+}
+
+.quote:hover {
+  box-shadow: 0 16px 38px rgba(100, 100, 196, 0.35);
+}
+
+.step__box {
+  transition: box-shadow 0.25s ease;
+}
+
+.step:hover .step__box {
+  box-shadow: 0 12px 28px rgba(100, 100, 196, 0.4);
 }
 
 /* ---------- contact ---------- */
@@ -1031,6 +1206,14 @@ footer[id] {
   .card--lift {
     animation: none;
   }
+  .card--front .card__side .slot,
+  .card--front .card__body > .slot--tall {
+    animation: none;
+  }
+  .slot img,
+  .slot video {
+    transition: none;
+  }
   .nav,
   .nav__links a,
   .nav__links a::after,
@@ -1040,6 +1223,14 @@ footer[id] {
   .nav.is-scrolled {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
+  }
+  .marquee__track,
+  .bg-blob {
+    animation: none;
+  }
+  .pill__box,
+  .quote {
+    transition: none;
   }
   .btn,
   .footer__social a {

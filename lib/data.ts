@@ -29,9 +29,9 @@ export const SKILLS = [
 ];
 
 export const STATS = [
-  { value: "40+", label: "Projects delivered" },
-  { value: "5+", label: "Years of practice" },
-  { value: "12+", label: "Industries served" },
+  { value: 40, suffix: "+", label: "Projects delivered" },
+  { value: 5, suffix: "+", label: "Years of practice" },
+  { value: 12, suffix: "+", label: "Industries served" },
 ];
 
 // Background images for the pills: replace the SVGs in /public/images/offer

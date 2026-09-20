@@ -11,24 +11,37 @@ export default function Navbar() {
   useEffect(() => {
     const ids = NAV_LINKS.map((l) => l.href.slice(1));
 
+    let frame = 0;
     const onScroll = () => {
-      setScrolled(window.scrollY > 8);
+      // Throttle layout reads to one pass per frame.
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        setScrolled(window.scrollY > 8);
 
-      // Near the top → Home is active by default.
-      if (window.scrollY < 60) {
-        setActive("home");
-        return;
-      }
+        // Near the top → Home is active by default.
+        if (window.scrollY < 60) {
+          setActive("home");
+          return;
+        }
 
-      // The last section whose top has passed the probe line (just under the
-      // sticky bar) is the one currently being read.
-      const probe = window.scrollY + 150;
-      let current = "";
-      for (const id of ids) {
-        const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= probe) current = id;
-      }
-      setActive(current);
+        // At the very bottom → the last link (Contact) is active.
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        if (window.scrollY >= maxScroll - 40) {
+          setActive(ids[ids.length - 1]);
+          return;
+        }
+
+        // The last section whose top has passed the probe line (150px, just
+        // under the sticky bar) is the one currently being read.
+        const PROBE = 150;
+        let current = "";
+        for (const id of ids) {
+          const el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top <= PROBE) current = id;
+        }
+        setActive(current);
+      });
     };
 
     const onResize = () => {
@@ -41,6 +54,7 @@ export default function Navbar() {
     window.addEventListener("resize", onResize);
 
     return () => {
+      if (frame) cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
     };
