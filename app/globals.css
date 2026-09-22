@@ -918,28 +918,6 @@ footer[id] {
   color: #fff;
 }
 
-.contact__social {
-  display: flex;
-  gap: 1.1rem;
-  margin-top: 2.4rem;
-}
-
-.contact__social a {
-  width: 2.3rem;
-  height: 2.3rem;
-  display: block;
-  transition: transform 0.15s;
-}
-
-.contact__social a:hover {
-  transform: translateY(-2px);
-}
-
-.contact__social svg {
-  width: 100%;
-  height: 100%;
-}
-
 .contact__form {
   display: flex;
   flex-direction: column;
@@ -992,6 +970,28 @@ footer[id] {
   grid-area: auto;
   margin-bottom: 0;
   background: linear-gradient(180deg, #7a78e2 0%, #5f5dc0 100%);
+}
+
+.contact__submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.form-note {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.form-note--ok {
+  color: #9fe6a8;
+}
+
+.form-note--err {
+  color: #ffb3b3;
 }
 
 /* ---------- footer ---------- */

@@ -113,8 +113,9 @@ export const CONTACT = {
   phoneHref: "tel:+917059270026",
   email: "chitrokoralok@gmail.com",
   socials: [
-    { name: "Facebook", href: "https://facebook.com/" },
-    { name: "Instagram", href: "https://instagram.com/" },
-    { name: "LinkedIn", href: "https://linkedin.com/" },
+    { name: "Facebook", href: "https://www.facebook.com/suman.biswas.340846#" },
+    { name: "Instagram", href: "https://www.instagram.com/_alokchitrokor_?stkn=czJheTluam4yaG5s" },
+    { name: "LinkedIn", href: "https://www.linkedin.com/in/suman-biswas-940345197/" },
+    { name: "YouTube", href: "https://www.youtube.com/@alokchitrokor" },
   ],
 };
