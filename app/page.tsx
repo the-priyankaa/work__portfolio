@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import ScrollAnimation from "@/components/ScrollAnimation";
 import Background from "@/components/Background";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -17,6 +18,7 @@ export default function Page() {
   return (
     <>
       <Background />
+      <ScrollAnimation />
       <main>
         <Navbar />
         <Hero />

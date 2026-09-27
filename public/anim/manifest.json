@@ -1,0 +1,10 @@
+{
+  "frameCount": 79,
+  "width": 1280,
+  "height": 720,
+  "pattern": "/anim/%04d.webp",
+  "firstIndex": 1,
+  "sourceFrameCount": 235,
+  "stride": 3,
+  "quality": 72
+}

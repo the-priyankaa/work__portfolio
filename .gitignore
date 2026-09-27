@@ -29,4 +29,5 @@ yarn-error.log*
 next-env.d.ts
 
 # raw design source (README: git-ignored, NOT deployed)
-/asset/
+# NB: folder is misspelled "assste" in the repo — match the real name.
+assste/

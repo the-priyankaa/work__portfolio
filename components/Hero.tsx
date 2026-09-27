@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { TAGLINE } from "@/lib/data";
 
@@ -30,25 +29,6 @@ export default function Hero() {
         >
           Hi! I&rsquo;m Suman
         </motion.h1>
-
-        <motion.div
-          className="hero__char"
-          initial={reduce ? false : { opacity: 0, scale: 0.92 }}
-          animate={reduce ? undefined : { opacity: 1, scale: 1, y: [0, -12, 0] }}
-          transition={
-            reduce
-              ? undefined
-              : { opacity: { duration: 0.6, ease: "easeOut" }, scale: { duration: 0.6 }, y: { duration: 5.5, repeat: Infinity, ease: "easeInOut" } }
-          }
-        >
-          <Image
-            src="/images/hero-suman.png"
-            alt="3D illustration of Suman waving, wearing a red hoodie"
-            width={322}
-            height={673}
-            priority
-          />
-        </motion.div>
 
         <motion.p
           className="hero__tagline"
